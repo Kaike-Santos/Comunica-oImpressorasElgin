@@ -6,7 +6,7 @@
 /* ======================= Config DLL ======================= */
 static HMODULE g_hDll = NULL;
 
-/* Convenção de chamada (Windows): __stdcall */
+/* Convenï¿½ï¿½o de chamada (Windows): __stdcall */
 #ifndef CALLCONV
 #  define CALLCONV WINAPI
 #endif
@@ -41,7 +41,7 @@ static ImprimeXMLSAT_t                ImprimeXMLSAT                = NULL;
 static ImprimeXMLCancelamentoSAT_t    ImprimeXMLCancelamentoSAT    = NULL;
 static InicializaImpressora_t         InicializaImpressora         = NULL;
 
-/* ======================= Configuração ======================= */
+/* ======================= Configuraï¿½ï¿½o ======================= */
 static int   g_tipo      = 1;
 static char  g_modelo[64] = "i9";
 static char  g_conexao[128] = "USB";
@@ -53,7 +53,7 @@ static int   g_conectada = 0;
     do {                                                                         \
         name = (name##_t)GetProcAddress((HMODULE)(h), #name);                    \
         if (!(name)) {                                                           \
-            fprintf(stderr, "Falha ao resolver símbolo %s (erro=%lu)\n",         \
+            fprintf(stderr, "Falha ao resolver sï¿½mbolo %s (erro=%lu)\n",         \
                     #name, GetLastError());                                      \
             return 0;                                                            \
         }                                                                        \
@@ -64,7 +64,7 @@ static void flush_entrada(void) {
     while ((c = getchar()) != '\n' && c != EOF) { }
 }
 
-/* ======================= Funções para manipular a DLL ======================= */
+/* ======================= Funï¿½ï¿½es para manipular a DLL ======================= */
 static int carregarFuncoes(void)
 {
     g_hDll = LoadLibraryA("E1_Impressora01.dll");
@@ -98,16 +98,17 @@ static void liberarBiblioteca(void)
     }
 }
 
-/* ======================= Funções a serem implementadas pelos alunos ======================= */
+/* ======================= Funï¿½ï¿½es a serem implementadas pelos alunos ======================= */
 
 static void exibirMenu(void)
 {
-    // TODO: implementar exibição do menu principal com as opções de impressão
+    // TODO: implementar exibiï¿½ï¿½o do menu principal com as opï¿½ï¿½es de impressï¿½o
+        
 }
 
 static void configurarConexao(void)
 {
-    // TODO: pedir ao usuário tipo, modelo, conexão e parâmetro
+    // TODO: pedir ao usuï¿½rio tipo, modelo, conexï¿½o e parï¿½metro
 }
 
 static void abrirConexao(void)
@@ -122,13 +123,13 @@ static void fecharConexao(void)
 
 static void imprimirTexto(void)
 {
-    // TODO: solicitar texto do usuário e chamar ImpressaoTexto
+    // TODO: solicitar texto do usuï¿½rio e chamar ImpressaoTexto
     // incluir AvancaPapel e Corte no final
 }
 
 static void imprimirQRCode(void)
 {
-    // TODO: solicitar conteúdo do QRCode e chamar ImpressaoQRCode(texto, 6, 4)
+    // TODO: solicitar conteï¿½do do QRCode e chamar ImpressaoQRCode(texto, 6, 4)
     // incluir AvancaPapel e Corte no final
 }
 
@@ -174,20 +175,68 @@ static void emitirSinalSonoro(void)
     // TODO: chamar SinalSonoro(4, 50, 5)
 }
 
-/* ======================= Função principal ======================= */
+/* ======================= Funï¿½ï¿½o principal ======================= */
 int main(void)
 {
     if (!carregarFuncoes()) {
         return 1;
     }
-
-    int opcao = 0;
+	
     while (1) {
         
-        //construir o menu e chamar as funçoes aqui!!!
-        
-                
-        
+        //construir o menu e chamar as funï¿½oes aqui!!!
+        int opcao;
+        printf("###################################\n##                               ##\n##      Bem vindo ao menu!       ##\n##                               ##\n##  1 - Configurar Conexao       ##\n##  2 - Abrir Conexao            ##\n##  3 - Impressao Texto          ##\n##  4 - Impressao QRCode         ##\n##  5 - Impressao Cod Barras     ##\n##  6 - Impressao XML SAT        ##\n##  7 - Impressao XML Canc SAT   ##\n##  8 - Abrir Gaveta Elgin       ##\n##  9 - Abrir Gaveta             ##  \n## 10 - Sinal Sonoro             ##\n##  0 - Fechar Conexao e Sair    ##\n##                               ##\n###################################\n");
+        scanf("%i",&opcao);
+        switch (opcao) {
+        case 1:
+            printf("Opcao escolhida: Configurar Conexao!\n");
+            configurarConexao();
+            break;
+        case 2:
+            printf("Opcao escolhida: Abrir Conexao!\n");
+            abrirConexao();
+            break;
+        case 3:
+            printf("Opcao escolhida: Impressao Texto!\n");
+            imprimirTexto();
+            break;
+        case 4:
+            printf("Opcao escolhida: Impressao QRCode!\n");
+            imprimirQRCode();
+            break;
+        case 5:
+            printf("Opcao escolhida: Impressao Cod Barras!\n");
+            imprimirCodigoBarras();
+            break;
+        case 6:
+            printf("Opcao escolhida: Impressao XML SAT!\n");
+            imprimirXMLSAT();
+            break;
+        case 7:
+            printf("Opcao escolhida: Impressao XML Canc SAT!\n");
+            imprimirXMLCancelamentoSAT();
+            break;
+        case 8:
+            printf("Opcao escolhida: Abrir Gaveta Elgin!\n");
+            abrirGavetaElginOpc();
+            break;
+        case 9:
+            printf("Opcao escolhida: Abrir Gaveta!\n");
+            abrirGavetaOpc();
+            break;
+        case 10:
+            printf("Opcao escolhida: Sinal Sonoro!\n");
+            emitirSinalSonoro();
+            break;
+        case 0:
+            printf("Opcao escolhida: Fechar Conexao e Sair!\n\n");
+            fecharConexao();
+            break;
+        default:
+            printf("Opcao Invalida!\n");
+            break;
+    }
     }
 }
 
