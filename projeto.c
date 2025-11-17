@@ -242,12 +242,38 @@ static void imprimirCodigoBarras(void)
 {
     // TODO: usar ImpressaoCodigoBarras(8, "{A012345678912", 100, 2, 3)
     // incluir AvancaPapel e Corte no final
+    int r ;
+    r = ImpressaoCodigoBarras(8, "{A012345678912", 100, 2, 3);
+    if(r==0){
+        int a = AvancaPapel(2);
+        int c = Corte(2);
+        printf("Codigo de barras impresso!\n");
+    }else{
+        printf("###############################################\n"
+               "##                                           ##\n"
+               "##   Erro ao imprimir cod barras. cod:%d\n   ##\n"
+               "##                                           ##\n"
+               "###############################################\n\n", r);
+    }
 }
 
 static void imprimirXMLSAT(void)
 {
     // TODO: ler o arquivo ./XMLSAT.xml e enviar via ImprimeXMLSAT
     // incluir AvancaPapel e Corte no final
+    
+    int r = ImprimeXMLSAT("path=./XMLSAT.xml",0);
+    if(r==0){
+        int a = AvancaPapel(2);
+        int c = Corte(2);
+        printf("Sucesso na impressao!\n");
+    }else{
+        printf("###############################################\n"
+               "##                                           ##\n"
+               "##   Erro na impressao. cod:%d\n             ##\n"
+               "##                                           ##\n"
+               "###############################################\n\n", r);
+    }
 }
 
 static void imprimirXMLCancelamentoSAT(void)
@@ -263,6 +289,25 @@ static void imprimirXMLCancelamentoSAT(void)
         "p0ccqnZvuE70aHOI09elpjEO6Cd+orI7XHHrFCwhFhAcbalc+ZfO5b/+vkyAHS6C"
         "YVFCDtYR9Hi5qgdk31v23w==";
         */
+
+    int r = ImprimeXMLCancelamentoSAT(
+        "path=./XMLSAT.xml","Q5DLkpdRijIRGY6YSSNsTWK1TztHL1vD0V1Jc4spo/CEUqICEb9SFy82ym8EhBRZ"
+        "jbh3btsZhF+sjHqEMR159i4agru9x6KsepK/q0E2e5xlU5cv3m1woYfgHyOkWDNc"
+        "SdMsS6bBh2Bpq6s89yJ9Q6qh/J8YHi306ce9Tqb/drKvN2XdE5noRSS32TAWuaQE"
+        "Vd7u+TrvXlOQsE3fHR1D5f1saUwQLPSdIv01NF6Ny7jZwjCwv1uNDgGZONJdlTJ6"
+        "p0ccqnZvuE70aHOI09elpjEO6Cd+orI7XHHrFCwhFhAcbalc+ZfO5b/+vkyAHS6C"
+        "YVFCDtYR9Hi5qgdk31v23w==",0);
+    if(r==0){
+        int a = AvancaPapel(2);
+        int c = Corte(2);
+        printf("Sucesso na impressao!\n");
+    }else{
+        printf("###############################################\n"
+               "##                                           ##\n"
+               "##   Erro na impressao. cod:%d\n             ##\n"
+               "##                                           ##\n"
+               "###############################################\n\n", r);
+    }
 }
 
 static void abrirGavetaElginOpc(void)
@@ -284,8 +329,7 @@ static void emitirSinalSonoro(void)
 int main(void)
 {
     int tipo,parametro,opcao,config,r;
-    char modelo[20],conexao[25], texto[100];
-    char qrcode = "aaaaa";
+    char modelo[20],conexao[25], texto[100], qrcode[100];
         if (!carregarFuncoes()) {
         return 1;
     }
