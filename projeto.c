@@ -313,16 +313,46 @@ static void imprimirXMLCancelamentoSAT(void)
 static void abrirGavetaElginOpc(void)
 {
     // TODO: chamar AbreGavetaElgin(1, 50, 50)
+    int r =  AbreGavetaElgin(1,50,50);
+    if(r==0){
+        printf("Gaveta Elgin aberta com sucesso!\n");
+    }else{
+        printf("###############################################\n"
+               "##                                           ##\n"
+               "##   Erro ao abrir gaveta. cod:%d\n          ##\n"
+               "##                                           ##\n"
+               "###############################################\n\n", r);
+    }
 }
 
 static void abrirGavetaOpc(void)
 {
     // TODO: chamar AbreGaveta(1, 5, 10)
+    int r =  AbreGavetaElgin(1,5,10);
+    if(r==0){
+        printf("Gaveta aberta com sucesso!\n");
+    }else{
+        printf("###############################################\n"
+               "##                                           ##\n"
+               "##   Erro ao abrir gaveta. cod:%d\n          ##\n"
+               "##                                           ##\n"
+               "###############################################\n\n", r);
+    }
 }
 
 static void emitirSinalSonoro(void)
 {
     // TODO: chamar SinalSonoro(4, 50, 5)
+    int r =  SinalSonoro(4,50,5);
+    if(r==0){
+        printf("Sinal sonoro emitido com sucesso!\n");
+    }else{
+        printf("################################################\n"
+               "##                                            ##\n"
+               "##   Erro ao emitir sinal sonoro. cod:%d\n    ##\n"
+               "##                                            ##\n"
+               "################################################\n\n", r);
+    }
 }
 
 /* ======================= Fun��o principal ======================= */
