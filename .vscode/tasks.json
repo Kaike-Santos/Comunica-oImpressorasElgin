@@ -16,10 +16,11 @@
                 "kind": "build",
                 "isDefault": true
             },
-            "problemMatcher": [],
+            "problemMatcher": ["$gcc"],
             "presentation": {
-                "reveal": "never",
-                "panel": "dedicated"
+                "reveal": "always",       
+                "panel": "dedicated",
+                "clear": true             
             }
         }
     ]
