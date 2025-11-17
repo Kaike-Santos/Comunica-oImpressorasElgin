@@ -106,9 +106,52 @@ static void exibirMenu(void)
         
 }
 
-static void configurarConexao(void)
+static void configurarConexao(int *tipo,char *modelo, char *conexao, int *parametro)
 {
     // TODO: pedir ao usu�rio tipo, modelo, conex�o e par�metro
+    printf("#############################################\n"
+           "##         Configurar Conexao:             ##\n"
+           "##                                         ##\n"
+           "##   1 - USB                               ##\n"
+           "##   2 - RS232                             ##\n"
+           "##   3 - TCP/IP                            ##\n"
+           "##   4 - Bluetooth                         ##\n"
+           "##   5 - Impressoras acopladas(Android)    ##\n"
+           "##                                         ##\n"
+           "#############################################\n");
+    scanf("%i",tipo);
+    
+    if(*tipo == 5){
+        modelo = "";
+        conexao = "";
+        printf("Impressora Acoplada selecionada, configuração terminada!");
+    }else{
+    printf("#####################################\n"
+           "##                                 ##\n"
+           "##   Digite o modelo da conexao:   ##\n" 
+           "##                                 ##\n"
+           "#####################################\n");
+    scanf("%s",modelo);
+
+    
+    printf("########################################\n"
+           "##                                    ##\n"
+           "##  Digite a conexao da impressora:   ##\n"
+           "##                                    ##\n"
+           "########################################\n");
+    scanf("%s",conexao);
+    }
+
+    if(*tipo == 1||*tipo == 4||*tipo == 5){
+        parametro = 0;
+    }else{
+    printf("########################################\n"
+           "##                                    ##\n"
+           "##   Digite o parametro da conexao:   ##\n"
+           "##                                    ##\n"
+           "########################################\n");
+    scanf("%i",parametro);    
+    }
 }
 
 static void abrirConexao(void)
@@ -178,6 +221,8 @@ static void emitirSinalSonoro(void)
 /* ======================= Fun��o principal ======================= */
 int main(void)
 {
+    int tipo,parametro,opcao;
+    char modelo[20],conexao[25];
     if (!carregarFuncoes()) {
         return 1;
     }
@@ -185,13 +230,12 @@ int main(void)
     while (1) {
         
         //construir o menu e chamar as fun�oes aqui!!!
-        int opcao;
         printf("###################################\n##                               ##\n##      Bem vindo ao menu!       ##\n##                               ##\n##  1 - Configurar Conexao       ##\n##  2 - Abrir Conexao            ##\n##  3 - Impressao Texto          ##\n##  4 - Impressao QRCode         ##\n##  5 - Impressao Cod Barras     ##\n##  6 - Impressao XML SAT        ##\n##  7 - Impressao XML Canc SAT   ##\n##  8 - Abrir Gaveta Elgin       ##\n##  9 - Abrir Gaveta             ##  \n## 10 - Sinal Sonoro             ##\n##  0 - Fechar Conexao e Sair    ##\n##                               ##\n###################################\n");
         scanf("%i",&opcao);
         switch (opcao) {
         case 1:
             printf("Opcao escolhida: Configurar Conexao!\n");
-            configurarConexao();
+            configurarConexao(&tipo,modelo,conexao,&parametro);
             break;
         case 2:
             printf("Opcao escolhida: Abrir Conexao!\n");
