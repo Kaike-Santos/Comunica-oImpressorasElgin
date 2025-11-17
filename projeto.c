@@ -8,7 +8,7 @@ static HMODULE g_hDll = NULL;
 
 /* Conven��o de chamada (Windows): __stdcall */
 #ifndef CALLCONV
-#  define CALLCONV WINAPI
+#define CALLCONV WINAPI
 #endif
 
 /* ======================= Assinaturas da DLL ======================= */
@@ -191,6 +191,7 @@ static void fecharConexao(void)
         int r = FechaConexaoImpressora();
         if(r == 0 ){
         printf("##############################################################\n"
+               "##                                                          ##\n"
                "##   Conexao encerrada com sucesso, Finalizando programa!   ##\n"
                "##                                                          ##\n"
                "##############################################################\n\n");
@@ -203,16 +204,38 @@ static void fecharConexao(void)
     }}
 }
 
-static void imprimirTexto(void)
+static void imprimirTexto(char* texto)
 {
     // TODO: solicitar texto do usu�rio e chamar ImpressaoTexto
     // incluir AvancaPapel e Corte no final
+    printf("############################################\n"
+            "##                                        ##\n"
+            "##   Digite o texto a ser impresso:       ##\n"
+            "##                                        ##\n"
+            "############################################\n\n");
+
+    scanf("%s",texto);
+    int r = ImpressaoTexto(texto,0,0,0);    
+    
+    int a = AvancaPapel(2);
+    int c = Corte(2);
 }
 
-static void imprimirQRCode(void)
+static void imprimirQRCode(char* qrcode)
 {
     // TODO: solicitar conte�do do QRCode e chamar ImpressaoQRCode(texto, 6, 4)
     // incluir AvancaPapel e Corte no final
+    printf("############################################\n"
+            "##                                        ##\n"
+            "##   Digite o conteudo do  QR code:       ##\n"
+            "##                                        ##\n"
+            "############################################\n\n");
+    scanf("%s",qrcode);
+
+    int r = ImpressaoQRCode(qrcode, 6, 4);    
+    
+    int a = AvancaPapel(2);
+    int c = Corte(2);
 }
 
 static void imprimirCodigoBarras(void)
@@ -261,8 +284,9 @@ static void emitirSinalSonoro(void)
 int main(void)
 {
     int tipo,parametro,opcao,config,r;
-    char modelo[20],conexao[25];
-    if (!carregarFuncoes()) {
+    char modelo[20],conexao[25], texto[100];
+    char qrcode = "aaaaa";
+        if (!carregarFuncoes()) {
         return 1;
     }
 	
@@ -299,11 +323,11 @@ int main(void)
             break;
         case 3:
             printf("\nOpcao escolhida: Impressao Texto!\n\n");
-            imprimirTexto();
+            imprimirTexto(texto);
             break;
         case 4:
             printf("\nOpcao escolhida: Impressao QRCode!\n\n");
-            imprimirQRCode();
+            imprimirQRCode(qrcode);
             break;
         case 5:
             printf("\nOpcao escolhida: Impressao Cod Barras!\n\n");
