@@ -156,7 +156,11 @@ static void configurarConexao(int *tipo,char *modelo, char *conexao, int *parame
     strcpy(g_modelo, modelo);
     strcpy(g_conexao, conexao);
     g_parametro = *parametro;
-    printf("\nConexao configurada com sucesso!\n\n");
+    printf("##########################################\n"
+           "##                                      ##\n"
+           "##   Conexao configurada com sucesso!   ##\n"
+           "##                                      ##\n"
+           "##########################################\n\n");
     *config = 1;
 }
 
@@ -166,13 +170,37 @@ static void abrirConexao(int *config )
     if(*config==1){
         int r = AbreConexaoImpressora(g_tipo, g_modelo, g_conexao, g_parametro);
     }else{
-        printf("\nConfigure a conexao da impressora primeiro!\n\n");
+        printf("#####################################################\n"
+               "##                                                 ##\n"
+               "##   Configure a conexao da impressora primeiro!   ##\n"
+               "##                                                 ##\n"
+               "#####################################################\n\n");
     }
 }
 
 static void fecharConexao(void)
 {
     // TODO: chamar FechaConexaoImpressora e tratar retorno
+    if(g_conectada==0){
+        printf("################################################\n"
+               "##                                            ##\n"
+               "##   Abra a conexao com a impressora antes!   ##\n"
+               "##                                            ##\n"
+               "################################################\n\n");
+    }else{
+        int r = FechaConexaoImpressora();
+        if(r == 0 ){
+        printf("##############################################################\n"
+               "##   Conexao encerrada com sucesso, Finalizando programa!   ##\n"
+               "##                                                          ##\n"
+               "##############################################################\n\n");
+        }else {
+        printf("############################################\n"
+               "##                                        ##\n"
+               "##   Erro ao fechar a conexao. cod:%d\n   ##\n"
+               "##                                        ##\n"
+               "############################################\n\n", r);
+    }}
 }
 
 static void imprimirTexto(void)
@@ -241,7 +269,23 @@ int main(void)
     while (1) {
         
         //construir o menu e chamar as fun�oes aqui!!!
-        printf("###################################\n##                               ##\n##      Bem vindo ao menu!       ##\n##                               ##\n##  1 - Configurar Conexao       ##\n##  2 - Abrir Conexao            ##\n##  3 - Impressao Texto          ##\n##  4 - Impressao QRCode         ##\n##  5 - Impressao Cod Barras     ##\n##  6 - Impressao XML SAT        ##\n##  7 - Impressao XML Canc SAT   ##\n##  8 - Abrir Gaveta Elgin       ##\n##  9 - Abrir Gaveta             ##  \n## 10 - Sinal Sonoro             ##\n##  0 - Fechar Conexao e Sair    ##\n##                               ##\n###################################\n");
+        printf("###################################\n"
+               "##                               ##\n"
+               "##      Bem vindo ao menu!       ##\n"
+               "##                               ##\n"
+               "##  1 - Configurar Conexao       ##\n"
+               "##  2 - Abrir Conexao            ##\n"
+               "##  3 - Impressao Texto          ##\n"
+               "##  4 - Impressao QRCode         ##\n"
+               "##  5 - Impressao Cod Barras     ##\n"
+               "##  6 - Impressao XML SAT        ##\n"
+               "##  7 - Impressao XML Canc SAT   ##\n"
+               "##  8 - Abrir Gaveta Elgin       ##\n"
+               "##  9 - Abrir Gaveta             ##\n"
+               "## 10 - Sinal Sonoro             ##\n"
+               "##  0 - Fechar Conexao e Sair    ##\n"
+               "##                               ##\n"
+               "###################################\n");
         scanf("%i",&opcao);
         switch (opcao) {
         case 1:
@@ -288,7 +332,6 @@ int main(void)
         case 0:
             printf("\nOpcao escolhida: Fechar Conexao e Sair!\n\n");
             fecharConexao();
-            return 0 ;
             break;
         default:
             printf("\nOpcao Invalida!\n\n");
