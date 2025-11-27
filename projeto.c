@@ -181,8 +181,22 @@ static void configurarConexao(int *tipo,char *modelo, char *conexao, int *parame
 static void abrirConexao(int *config )
 {
     // TODO: chamar AbreConexaoImpressora e validar retorno
-    if(*config==1){
-        int r = AbreConexaoImpressora(g_tipo, g_modelo, g_conexao, g_parametro);
+    int r;
+    if(*config == 1){
+         r = AbreConexaoImpressora(g_tipo, g_modelo, g_conexao, g_parametro);
+         if(r==0){
+        printf("##########################################\n"
+           	   "##                                      ##\n"
+               "##   Conexao aberta com sucesso!        ##\n"
+               "##                                      ##\n"
+               "##########################################\n\n");
+    }else{
+        printf("###############################################\n"
+               "##                                           ##\n"
+               "##   Erro na abertura da conexao. cod:%d\n   ##\n"
+               "##                                           ##\n"
+               "###############################################\n\n", r);
+    }
     }else{
         printf("#####################################################\n"
                "##                                                 ##\n"
@@ -190,6 +204,7 @@ static void abrirConexao(int *config )
                "##                                                 ##\n"
                "#####################################################\n\n");
     }
+	
 }
 // Fecha a conex�o com a impressora
 static void fecharConexao(void)
@@ -223,14 +238,33 @@ static void imprimirTexto(char* texto)
 {
     // TODO: solicitar texto do usu?rio e chamar ImpressaoTexto
     // incluir AvancaPapel e Corte no final
-    printf("############################################\n"
+    if(g_conectada==0){
+        printf("################################################\n"
+               "##                                            ##\n"
+               "##   Abra a conexao com a impressora antes!   ##\n"
+               "##                                            ##\n"
+               "################################################\n\n");
+    }else{
+	printf("############################################\n"
             "##                                        ##\n"
             "##   Digite o texto a ser impresso:       ##\n"
             "##                                        ##\n"
             "############################################\n\n");
 
     scanf("%s",texto);
-    int r = ImpressaoTexto(texto,0,0,0);    
+    int r = ImpressaoTexto(texto,0,0,0);  
+	if(r==0){
+        int a = AvancaPapel(2);
+        int c = Corte(2);
+        printf("Codigo de barras impresso!\n");
+    }else{
+        printf("###############################################\n"
+               "##                                           ##\n"
+               "##   Erro ao imprimir cod barras. cod:%d\n   ##\n"
+               "##                                           ##\n"
+               "###############################################\n\n", r);
+    }
+	}
     
     int a = AvancaPapel(2);
     int c = Corte(2);
@@ -240,6 +274,14 @@ static void imprimirQRCode(char* qrcode)
 {
     // TODO: solicitar conte?do do QRCode e chamar ImpressaoQRCode(texto, 6, 4)
     // incluir AvancaPapel e Corte no final
+    if(g_conectada==0){
+        printf("################################################\n"
+               "##                                            ##\n"
+               "##   Abra a conexao com a impressora antes!   ##\n"
+               "##                                            ##\n"
+               "################################################\n\n");
+    }else{
+    
     printf("############################################\n"
             "##                                        ##\n"
             "##   Digite o conteudo do  QR code:       ##\n"
@@ -248,9 +290,21 @@ static void imprimirQRCode(char* qrcode)
     scanf("%s",qrcode);
 
     int r = ImpressaoQRCode(qrcode, 6, 4);    
+    if(r==0){
+        int a = AvancaPapel(2);
+        int c = Corte(2);
+        printf("Codigo de barras impresso!\n");
+    }else{
+        printf("###############################################\n"
+               "##                                           ##\n"
+               "##   Erro ao imprimir cod barras. cod:%d\n   ##\n"
+               "##                                           ##\n"
+               "###############################################\n\n", r);
+    }
     
     int a = AvancaPapel(2);
     int c = Corte(2);
+	}
 }
 // Imprime um c�digo de barras padr�o
 static void imprimirCodigoBarras(void)
@@ -258,6 +312,13 @@ static void imprimirCodigoBarras(void)
     // TODO: usar ImpressaoCodigoBarras(8, "{A012345678912", 100, 2, 3)
     // incluir AvancaPapel e Corte no final
     int r ;
+    if(g_conectada==0){
+        printf("################################################\n"
+               "##                                            ##\n"
+               "##   Abra a conexao com a impressora antes!   ##\n"
+               "##                                            ##\n"
+               "################################################\n\n");
+    }else{
     r = ImpressaoCodigoBarras(8, "{A012345678912", 100, 2, 3);
     if(r==0){
         int a = AvancaPapel(2);
@@ -271,13 +332,22 @@ static void imprimirCodigoBarras(void)
                "###############################################\n\n", r);
     }
 }
+}
 // Imprime um XML SAT que est� no diret�rio
 static void imprimirXMLSAT(void)
 {
     // TODO: ler o arquivo ./XMLSAT.xml e enviar via ImprimeXMLSAT
     // incluir AvancaPapel e Corte no final
     
-    int r = ImprimeXMLSAT("path=./XMLSAT.xml",0);
+    int r ;
+    if(g_conectada==0){
+        printf("################################################\n"
+               "##                                            ##\n"
+               "##   Abra a conexao com a impressora antes!   ##\n"
+               "##                                            ##\n"
+               "################################################\n\n");
+    }else{
+	r = ImprimeXMLSAT("path=./XMLSAT.xml",0);
     if(r==0){
         int a = AvancaPapel(2);
         int c = Corte(2);
@@ -290,7 +360,7 @@ static void imprimirXMLSAT(void)
                "###############################################\n\n", r);
     }
 }
-
+}
 // Imprime XML de cancelamento de SAT com assinatura
 static void imprimirXMLCancelamentoSAT(void)
 {
@@ -305,7 +375,14 @@ static void imprimirXMLCancelamentoSAT(void)
         "p0ccqnZvuE70aHOI09elpjEO6Cd+orI7XHHrFCwhFhAcbalc+ZfO5b/+vkyAHS6C"
         "YVFCDtYR9Hi5qgdk31v23w==";
         */
-
+	int r ;
+	if(g_conectada==0){
+        printf("################################################\n"
+               "##                                            ##\n"
+               "##   Abra a conexao com a impressora antes!   ##\n"
+               "##                                            ##\n"
+               "################################################\n\n");
+    }else{
     int r = ImprimeXMLCancelamentoSAT(
         "path=./CANC_SAT.xml","Q5DLkpdRijIRGY6YSSNsTWK1TztHL1vD0V1Jc4spo/CEUqICEb9SFy82ym8EhBRZ"
         "jbh3btsZhF+sjHqEMR159i4agru9x6KsepK/q0E2e5xlU5cv3m1woYfgHyOkWDNc"
@@ -324,11 +401,18 @@ static void imprimirXMLCancelamentoSAT(void)
                "##                                           ##\n"
                "###############################################\n\n", r);
     }
-}
+}}
 // Envia comando espec�fico para gaveta Elgin
 static void abrirGavetaElginOpc(void)
 {
     // TODO: chamar AbreGavetaElgin(1, 50, 50)
+    if(g_conectada==0){
+        printf("################################################\n"
+               "##                                            ##\n"
+               "##   Abra a conexao com a impressora antes!   ##\n"
+               "##                                            ##\n"
+               "################################################\n\n");
+    }else{
     int r =  AbreGavetaElgin(1,50,50);
     if(r==0){
         printf("Gaveta Elgin aberta com sucesso!\n");
@@ -339,11 +423,18 @@ static void abrirGavetaElginOpc(void)
                "##                                           ##\n"
                "###############################################\n\n", r);
     }
-}
+}}
 // Envia comando para abertura de gaveta
 static void abrirGavetaOpc(void)
 {
     // TODO: chamar AbreGaveta(1, 5, 10)
+    if(g_conectada==0){
+        printf("################################################\n"
+               "##                                            ##\n"
+               "##   Abra a conexao com a impressora antes!   ##\n"
+               "##                                            ##\n"
+               "################################################\n\n");
+    }else{
     int r =  AbreGavetaElgin(1,5,10);
     if(r==0){
         printf("Gaveta aberta com sucesso!\n");
@@ -354,11 +445,18 @@ static void abrirGavetaOpc(void)
                "##                                           ##\n"
                "###############################################\n\n", r);
     }
-}
+}}
 // Emite sinal sonoro na impressora
 static void emitirSinalSonoro(void)
 {
     // TODO: chamar SinalSonoro(4, 50, 5)
+    if(g_conectada==0){
+        printf("################################################\n"
+               "##                                            ##\n"
+               "##   Abra a conexao com a impressora antes!   ##\n"
+               "##                                            ##\n"
+               "################################################\n\n");
+    }else{
     int r =  SinalSonoro(4,50,5);
     if(r==0){
         printf("Sinal sonoro emitido com sucesso!\n");
@@ -370,7 +468,7 @@ static void emitirSinalSonoro(void)
                "################################################\n\n", r);
     }
 }
-
+}
 /* ======================= Fun??o principal ======================= */
 
 // Vari�veis usadas para controle de menu e conex�o
