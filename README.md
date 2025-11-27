@@ -1,56 +1,82 @@
-# Comunica-oImpressorasElgin
+# 🖨️ Integração Java com Impressora Elgin i9
+### * Comunica-oImpressorasElgin*
+---
 
+## 📘 Sobre o Projeto
 
-Este programa permite realizar testes práticos com uma impressora, oferecendo opções como impressão de texto, QR Code,
-código de barras, acionamento de gaveta e emissão de sinal sonoro. O objetivo é facilitar a validação do funcionamento
- da impressora e da comunicação configurada pelo usuário.
+Este projeto foi desenvolvido por alunos com o objetivo de criar uma aplicação Java capaz de se comunicar com a impressora **Elgin i9**, utilizando comandos **ESC/POS**, testes de impressão e interação via porta de comunicação.  
+O trabalho faz parte da disciplina de **Programação Orientada a Objetos**.
 
 ---
 
-# Menu de Funções
+## 🧰 Tecnologias Utilizadas
 
-Ao iniciar o sistema, o usuário acessa o seguinte menu:
-
-| Opção | Descrição |
-|------:|-----------|
-| 1 | Configurar conexão da impressora |
-| 2 | Abrir conexão |
-| 3 | Imprimir texto |
-| 4 | Imprimir QR Code |
-| 5 | Imprimir código de barras |
-| 6 | Imprimir XML SAT |
-| 7 | Imprimir XML Cancelamento SAT |
-| 8 | Abrir gaveta Elgin |
-| 9 | Abrir gaveta genérica |
-| 10 | Emitir sinal sonoro |
-| 0 | Fechar conexão e sair |
+- **C**
+- **DEV C++**
+- **Biblioteca ESC/POS**
+- **Driver/SDK da Elgin i9**
 
 ---
 
-#  Como utilizar
+## 📁 Estrutura do Projeto
 
-1 **Configure a conexão**  
-Escolha o tipo de comunicação com a impressora e insira os dados solicitados.
+/src → Código-fonte principal
+/lib → Bibliotecas e dependências externas
+/docs → Materiais adicionais e documentação
+/examples → Testes e arquivos de demonstração
 
-2 **Abra a conexão**  
-Após configurada, habilita a comunicação com a impressora para receber os comandos.
-
-3 **Execute os testes disponíveis no menu**  
-É possível:
-- Inserir e imprimir texto digitado pelo usuário
-- Gerar QR Code para impressão
-- Imprimir um código de barras padrão de teste
-- Testar impressão de arquivos XML SAT
-- Abrir gaveta e realizar alerta sonoro
-
-4 **Finalize o sistema**  
-A última opção encerra a comunicação e fecha o programa corretamente.
 
 ---
 
-#  Finalidade
+## ⚙️ Instalação e Execução
 
-Ferramenta desenvolvida para testes de funcionamento, validação de comandos e operação de impressoras em ambiente local.
+### 🔽 1. Baixar o Projeto do GitHub
+1. Acesse o repositório.
+2. Clique no botão **Code**.
+3. Selecione **Download ZIP**.
+4. Aguarde o download.
+
+### 📦 2. Extrair o Arquivo ZIP
+1. Vá até o local onde o arquivo foi salvo.
+2. Clique com o botão direito → **Extrair aqui** / **Extract All**.
+3. Será criada uma nova pasta com os arquivos.
 
 
+### 🧭 3. Importar no Dev-C++
+1. Abra o Dev-C++.
+2. Clique em File → Open Project ou File → Open.
+3. Escolha a pasta ou o arquivo .cpp do projeto.
+4. Aguarde o carregamento.
+5. Caso apareça alguma solicitação de configuração, confirme o uso do compilador padrão (MinGW).
+6. Verifique as configurações do compilador em:
+ - Tools → Compiler Options → Compiler set (MinGW)
+ 7. Abra o arquivo main.cpp e clique em ▶️ Compile & Run (ou pressione F11).
 
+---
+
+## 🧪 Testes
+
+- Teste de conexão com a impressora
+- Impressão de texto simples
+- Envio de comandos **ESC/POS**
+- Verificação das portas de comunicação
+- Teste com várias mensagens
+
+---
+
+## 📚 Documentação Adicional
+
+- Manual da Impressora **Elgin i9**
+- Documentação do **SDK Elgin**
+- Referência **ESC/POS**
+
+---
+
+## 👥 Autores  
+*(em ordem alfabética)*
+
+- Esther Santos
+- Gabriel Lima
+- João Nelson
+- Kaique Machado
+- Maria Eduarda Gobira
