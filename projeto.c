@@ -6,14 +6,14 @@
 /* ======================= Config DLL ======================= */
 static HMODULE g_hDll = NULL;
 
-/* Conven��o de chamada (Windows): __stdcall */
+/* Conven??o de chamada (Windows): __stdcall */
 #ifndef CALLCONV
 #define CALLCONV WINAPI
 #endif
 
 /* ======================= Assinaturas da DLL ======================= */
 
-// Declaração dos tipos de funções
+// Declara��o dos tipos de fun��es
 typedef int (CALLCONV *AbreConexaoImpressora_t)(int, const char *, const char *, int);
 typedef int (CALLCONV *FechaConexaoImpressora_t)(void);
 typedef int (CALLCONV *ImpressaoTexto_t)(const char *, int, int, int);
@@ -30,7 +30,7 @@ typedef int (CALLCONV *InicializaImpressora_t)(void);
 
 /* ======================= Ponteiros ======================= */
 
-// Ponteiros para as funções da DLL
+// Ponteiros para as fun��es da DLL
 static AbreConexaoImpressora_t        AbreConexaoImpressora        = NULL;
 static FechaConexaoImpressora_t       FechaConexaoImpressora       = NULL;
 static ImpressaoTexto_t               ImpressaoTexto               = NULL;
@@ -45,9 +45,9 @@ static ImprimeXMLSAT_t                ImprimeXMLSAT                = NULL;
 static ImprimeXMLCancelamentoSAT_t    ImprimeXMLCancelamentoSAT    = NULL;
 static InicializaImpressora_t         InicializaImpressora         = NULL;
 
-/* ======================= Configura��o ======================= */
+/* ======================= Configura??o ======================= */
 
-// Configurações padrão de conexão
+// Configura��es padr�o de conex�o
 static int   g_tipo      = 1;
 static char  g_modelo[64] = "i9";
 static char  g_conexao[128] = "USB";
@@ -56,12 +56,12 @@ static int   g_conectada = 0;
 
 /* ======================= Utilidades ======================= */
 
-// Macro para carregar função da DLL e tratar erro se não encontrar
+// Macro para carregar fun��o da DLL e tratar erro se n�o encontrar
 #define LOAD_FN(h, name)                                                         \
     do {                                                                         \
         name = (name##_t)GetProcAddress((HMODULE)(h), #name);                    \
         if (!(name)) {                                                           \
-            fprintf(stderr, "Falha ao resolver s�mbolo %s (erro=%lu)\n",         \
+            fprintf(stderr, "Falha ao resolver s?mbolo %s (erro=%lu)\n",         \
                     #name, GetLastError());                                      \
             return 0;                                                            \
         }                                                                        \
@@ -73,9 +73,9 @@ static void flush_entrada(void) {
     while ((c = getchar()) != '\n' && c != EOF) { }
 }
 
-/* ======================= Fun��es para manipular a DLL ======================= */
+/* ======================= Fun??es para manipular a DLL ======================= */
 
-// Carrega a DLL da impressora e inicializa os ponteiros de função
+// Carrega a DLL da impressora e inicializa os ponteiros de fun��o
 static int carregarFuncoes(void)
 {
     g_hDll = LoadLibraryA("E1_Impressora01.dll");
@@ -100,7 +100,7 @@ static int carregarFuncoes(void)
 
     return 1;
 }
-// Libera a DLL da memória ao finalizar o programa
+// Libera a DLL da mem�ria ao finalizar o programa
 static void liberarBiblioteca(void)
 {
     if (g_hDll) {
@@ -109,18 +109,18 @@ static void liberarBiblioteca(void)
     }
 }
 
-/* ======================= Fun��es a serem implementadas pelos alunos ======================= */
+/* ======================= Fun??es a serem implementadas pelos alunos ======================= */
 
-// // Função para exibir o menu principal
+// // Fun��o para exibir o menu principal
 static void exibirMenu(void)
 {
-    // TODO: implementar exibi��o do menu principal com as op��es de impress�o
+    // TODO: implementar exibi??o do menu principal com as op??es de impress?o
         
 }
-// Recebe os parâmetros da conexão pelo usuário
+// Recebe os par�metros da conex�o pelo usu�rio
 static void configurarConexao(int *tipo,char *modelo, char *conexao, int *parametro,int *config)
 {
-    // TODO: pedir ao usu�rio tipo, modelo, conex�o e par�metro
+    // TODO: pedir ao usu?rio tipo, modelo, conex?o e par?metro
     printf("#############################################\n"
            "##         Configurar Conexao:             ##\n"
            "##                                         ##\n"
@@ -164,7 +164,7 @@ static void configurarConexao(int *tipo,char *modelo, char *conexao, int *parame
            "########################################\n\n");
     scanf("%i",parametro);    
     }
-	// Salva configuração nas variáveis
+	// Salva configura��o nas vari�veis
     g_tipo = *tipo;
     strcpy(g_modelo, modelo);
     strcpy(g_conexao, conexao);
@@ -177,7 +177,7 @@ static void configurarConexao(int *tipo,char *modelo, char *conexao, int *parame
     *config = 1;
 }
 
-// Abre a conexão com a impressora
+// Abre a conex�o com a impressora
 static void abrirConexao(int *config )
 {
     // TODO: chamar AbreConexaoImpressora e validar retorno
@@ -191,7 +191,7 @@ static void abrirConexao(int *config )
                "#####################################################\n\n");
     }
 }
-// Fecha a conexão com a impressora
+// Fecha a conex�o com a impressora
 static void fecharConexao(void)
 {
     // TODO: chamar FechaConexaoImpressora e tratar retorno
@@ -216,11 +216,12 @@ static void fecharConexao(void)
                "##                                        ##\n"
                "############################################\n\n", r);
     }}
+
 }
-// Imprime texto digitado pelo usuário e corta o papel
+// Imprime texto digitado pelo usu�rio e corta o papel
 static void imprimirTexto(char* texto)
 {
-    // TODO: solicitar texto do usu�rio e chamar ImpressaoTexto
+    // TODO: solicitar texto do usu?rio e chamar ImpressaoTexto
     // incluir AvancaPapel e Corte no final
     printf("############################################\n"
             "##                                        ##\n"
@@ -237,7 +238,7 @@ static void imprimirTexto(char* texto)
 // Imprime um QR Code com base no texto informado
 static void imprimirQRCode(char* qrcode)
 {
-    // TODO: solicitar conte�do do QRCode e chamar ImpressaoQRCode(texto, 6, 4)
+    // TODO: solicitar conte?do do QRCode e chamar ImpressaoQRCode(texto, 6, 4)
     // incluir AvancaPapel e Corte no final
     printf("############################################\n"
             "##                                        ##\n"
@@ -251,7 +252,7 @@ static void imprimirQRCode(char* qrcode)
     int a = AvancaPapel(2);
     int c = Corte(2);
 }
-// Imprime um código de barras padrão
+// Imprime um c�digo de barras padr�o
 static void imprimirCodigoBarras(void)
 {
     // TODO: usar ImpressaoCodigoBarras(8, "{A012345678912", 100, 2, 3)
@@ -270,7 +271,7 @@ static void imprimirCodigoBarras(void)
                "###############################################\n\n", r);
     }
 }
-// Imprime um XML SAT que está no diretório
+// Imprime um XML SAT que est� no diret�rio
 static void imprimirXMLSAT(void)
 {
     // TODO: ler o arquivo ./XMLSAT.xml e enviar via ImprimeXMLSAT
@@ -324,7 +325,7 @@ static void imprimirXMLCancelamentoSAT(void)
                "###############################################\n\n", r);
     }
 }
-// Envia comando específico para gaveta Elgin
+// Envia comando espec�fico para gaveta Elgin
 static void abrirGavetaElginOpc(void)
 {
     // TODO: chamar AbreGavetaElgin(1, 50, 50)
@@ -370,14 +371,14 @@ static void emitirSinalSonoro(void)
     }
 }
 
-/* ======================= Fun��o principal ======================= */
+/* ======================= Fun??o principal ======================= */
 
-// Variáveis usadas para controle de menu e conexão
+// Vari�veis usadas para controle de menu e conex�o
 int main(void)
 {
     int tipo,parametro,opcao,config,r;
     char modelo[20],conexao[25], texto[100], qrcode[100];
-	// Carrega as funções antes de qualquer operação
+	// Carrega as fun��es antes de qualquer opera��o
         if (!carregarFuncoes()) {
         return 1;
     }
@@ -385,7 +386,7 @@ int main(void)
 	// Loop principal (menu)
     while (1) {
         
-        //construir o menu e chamar as fun�oes aqui!!!
+        //construir o menu e chamar as fun?oes aqui!!!
         printf("###################################\n"
                "##                               ##\n"
                "##      Bem vindo ao menu!       ##\n"
@@ -404,7 +405,7 @@ int main(void)
                "##                               ##\n"
                "###################################\n");
         scanf("%i",&opcao);
-		// Seleciona a ação de acordo com a opção informada
+		// Seleciona a a��o de acordo com a op��o informada
         switch (opcao) {
         case 1:
             printf("\nOpcao escolhida: Configurar Conexao!\n\n");
@@ -450,7 +451,7 @@ int main(void)
         case 0:
             printf("\nOpcao escolhida: Fechar Conexao e Sair!\n\n");
             fecharConexao();
-            break;
+            return 0;
         default:
             printf("\nOpcao Invalida!\n\n");
             break;
