@@ -111,7 +111,7 @@ static void liberarBiblioteca(void)
 
 /* ======================= Fun��es a serem implementadas pelos alunos ======================= */
 
-// menu feito direto no main
+// // Função para exibir o menu principal
 static void exibirMenu(void)
 {
     // TODO: implementar exibi��o do menu principal com as op��es de impress�o
